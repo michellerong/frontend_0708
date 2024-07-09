@@ -9,36 +9,36 @@ import "../App.css";
 const { TabPane } = Tabs;
 
 const UserManagement = () => {
-  const [users, setUsers] = useState([]); // 用戶列表
+  const [users, setUsers] = useState([]); // 使用者列表
   const [isModalVisible, setIsModalVisible] = useState(false); // 編輯彈跳視窗狀態
   const [isAddModalVisible, setIsAddModalVisible] = useState(false); // 新增彈跳視窗狀態
   const [editingUser, setEditingUser] = useState(null); // 當前編輯中的使用者
   const [newUser, setNewUser] = useState({ name: '', gender: '', birthday: '', occupation: '', phone: '', image: '' }); // 欲新增的使用者
-  const [editFileList, setEditFileList] = useState([]); // 編輯使用者表單
+  const [editFileList, setEditFileList] = useState([]); // 編輯使用者表單(獲取陣列資料)
   const [newFileList, setNewFileList] = useState([]); // 新增使用者表單
   const [searchTerm, setSearchTerm] = useState(''); // 搜尋關鍵字
   const [loading, setLoading] = useState(true); // 是否正在加載
   const [filteredUsers, setFilteredUsers] = useState([]); // 篩選後的用戶列表
   const [tab, setTab] = useState('card'); // 狀態預設卡片頁籤
-  const [pageSize, setPageSize] = useState(6); // 每頁顯示的用戶數量
+  const [pageSize, setPageSize] = useState(6); // 每頁顯示的使用者數量
   const [currentPage, setCurrentPage] = useState(1); // 當前頁碼
 
   useEffect(() => {
-    fetchUsers(); // 當組件加載時，獲取用戶數據
+    fetchUsers(); // 當組件加載時，獲取使用者資料
   }, []);
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      handleSearch(searchTerm); // 當搜尋關鍵字改變時，進行搜尋
+      handleSearch(searchTerm); // 當搜尋關鍵字改變時，進行搜尋。
     }, 500);
     return () => clearTimeout(timeoutId); // 清除定時器
   }, [searchTerm, users]);
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/users'); // 發送 GET 請求獲取用戶數據
-      setUsers(response.data); // 設定用戶數據
-      setFilteredUsers(response.data); // 設定篩選後的用戶數據
+      const response = await axios.get('http://localhost:5000/users'); // 發送 GET 請求獲取資料，使用非同步方式獲取
+      setUsers(response.data); // 設定使用者資料
+      setFilteredUsers(response.data); // 設定篩選後的使用者資料
       setLoading(false); // 設置加載狀態為 false
     } catch (error) {
       console.error('Error fetching users:', error);
